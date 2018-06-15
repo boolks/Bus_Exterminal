@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, inital-scale=1" charset="utf-8">
+	<title>고속버스예매</title>
+	<link rel="stylesheet" type="text/css" href="bus.css">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+	<div data-role="page" id="wrapper">
+		<header data-role="header" data-fullscreen="true" id="header">
+			<h1>M-BUS</h1>
+		</header>
+		<div data-role="content" id="container">
+			<div class="content">
+				<div class="sub_title">
+					<h2>승차권 예약 예매</h2>
+				</div>
+				<div class="contentbox">
+					<table class="Rule">
+						<thead>
+							<tr>
+								<th width="88">
+									<b>구분</b>
+								</th>
+								<th colspan="2">
+									<b>내용</b>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th rowspan="5"><b>취소 수수료</b></th>
+								<th><b>취소시기<br>(수수료)</b></th>
+							</tr>
+							<tr>
+								<td>
+									"예약/예매 당일 또는 승차일 2일전 취소" <br>
+									"(단, 당일출발차량 예약 후 1시간 이후 취소는 수수료 발생)"<br>
+									(없음)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									"예약/예매 후 출발일 1일 전일부터 지정차 출발 1시간 전 취소" <br>
+									"(단, 당일출발차량 예약/예매 후 1시간 이내 취소는 수수료 없음)"<br>
+									(승차권 요금의 50%)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									"예약/예매 후 지정차 출발 1시간 이내 취소" <br>
+									"(단, 당일출발차량 예약/예매 후 1시간 이내 취소는 수수료 없음)"<br>
+									(승차권 요금의 10%)
+								</td>
+							</tr>
+							<tr>
+								<td>예매하신 지정차 출발 후 목적지 도착예정시간 전 취소<br>
+								(승차권 요금의 30%)</td>
+							</tr>
+							<tr>
+								<th><b>부도 위약금</b></th>
+								<td width="100">
+									"예약하신 사항에 대해 지정차 출발시각까지 발권, 취소," <br>
+									"미발행 시 예약 승차권에 대해 부도처리 됨"<br>
+									(승차권 요금의 30%)
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<br>
+					<p class="textInfo">
+						※ 사용하지 않은 모든 승차권은 지정차 출발 후 도착예정시간이<br>지나면 환불하실 수 없습니다.
+					</p>
+				</div>
+			</div>
+			<div id="reservationMenu">
+				<div class="field" style="display: block">
+					<form name="reservationForm" method="post" action="Bus_Search.html" data-ajax="false">
+						<fieldset>
+							<legend>승차권 예약/예매하기</legend>
+							<dl>
+								<dt class="tag">
+									<label for="regForm01">출발지</label>
+								</dt>
+								<dd>
+									<select id="Start" class="select" tabindex="100" onblur="setStatus()" style="width: 300px;" title="출발지 선택">
+										<option value="000">선택</option>
+										<option value="100">서울경부</option>
+										<option value="110">동서울</option>
+									</select>
+								</dd>
+								<dt class="tag">
+									<label for="regForm02">도착지</label>
+								</dt>
+								<dd>
+									<select id="Destination" class="select" tabindex="200" style="width: 300px;" title="도착지 선택">
+										<option value="000">선택</option>
+									</select>
+								</dd>
+								<input type="hidden" name="TER_TFR" value>
+								<dt class="tag">
+									<label for="regForm03">연도</label>
+								</dt>
+								<dd>
+									<select class="select" style="width: 300px;" tabindex="300" title="연도">
+										<option value="2016" selected>2016</option>
+									</select>
+								</dd>
+								<dt class="tag">
+									<label for>월</label>
+								</dt>
+								<dd>
+									<select id="Month" class="select" title="월" style="width: 300px;" tabindex="400">
+										<option value="00">선택</option>
+										<option value="01">1</option>
+										<option value="02">2</option>
+										<option value="03">3</option>
+										<option value="04">4</option>
+										<option value="05">5</option>
+										<option value="06">6</option>
+										<option value="07">7</option>
+										<option value="08">8</option>
+										<option value="09">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+									</select>
+								</dd>
+								<dt class="tag">
+									<label for>일</label>
+								</dt>
+								<dd>
+									<select id="Day" class="select" title="날짜" style="width: 300px;" tabindex="500">
+										<option value="00">선택</option>
+									</select>
+								</dd>
+								<dt class="tag">
+									<label for>시간</label>
+								</dt>
+								<dd>
+									<select id="Time" class="select" title="시간선택" style="width: 300px;" tabindex="600">
+										<option value="0000">선택</option>
+										<option value="2400">00:00</option>
+										<option value="0100">01:00</option>
+										<option value="0200">02:00</option>
+										<option value="0300">03:00</option>
+										<option value="0400">04:00</option>
+										<option value="0500">05:00</option>
+										<option value="0600">06:00</option>
+										<option value="0700">07:00</option>
+										<option value="0800">08:00</option>
+										<option value="0900">09:00</option>
+										<option value="1000">10:00</option>
+										<option value="1100">11:00</option>
+										<option value="1200">12:00</option>
+										<option value="1300">13:00</option>
+										<option value="1400">14:00</option>
+										<option value="1500">15:00</option>
+										<option value="1600">16:00</option>
+										<option value="1700">17:00</option>
+										<option value="1800">18:00</option>
+										<option value="1900">19:00</option>
+										<option value="2000">20:00</option>
+										<option value="2100">21:00</option>
+										<option value="2200">22:00</option>
+										<option value="2300">23:00</option>
+									</select>
+								</dd>
+								<dt class="tag">
+									<label for="04">등급</label>
+								</dt>
+								<dd>
+									<select class="select" style="width: 300px;" title="등급 선택" tabindex="700">
+										<option value="1">우등고속</option>
+									</select>
+								</dd>
+								<dt class="tag">
+									<label for>어른</label>
+								</dt>
+								<dd>
+									<select class="select" style="width: 300px;" title="어른매수 선택" tabindex="800">
+										<option value="1">1</option>
+									</select>
+								</dd>
+								<br>
+								<dd class="btn">
+									<input type="submit" tabindex="15" id="btn" value="조회" tabindex="900">
+								</dd>
+							</dl>
+						</fieldset>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div data-role="footer" data-position="fixed" data-fullscreen="true" id="footer">
+			<div class="address">
+				<a href="#">Created By WebProgramming 60132308 <br> bootre@naver.com</a>
+			</div>
+		</div>
+	</div>
+	<script src="bus.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, inital-scale=1" charset="utf-8">
+	<title>좌석선택</title>
+	<link rel="stylesheet" type="text/css" href="bus.css">
+	<link rel="stylesheet" type="text/css" href="busseat.css">
+	<script src="seat.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+	<div data-role="page" id="wrapper">
+		<header data-role="header" data-fullscreen="true" id="header">
+			<h1>M-BUS</h1>
+		</header>
+		<div data-role="content" id="container">
+			<div class="content">
+				<div class="sub_title">
+					<h2>승차권 예약 예매</h2>
+				</div>
+				<div class="seat_select">
+					<p class="text">교통 약자를 위해 배려해 주시기 바랍니다</p>
+					<p class="text">예약하시려는 승차권 매수는 일반1매 입니다.
+					<br>잔여좌석 중 1개의 좌석을 지정하세요.</p>
+					<br>
+					<form name="SeatForm" method="post" onsubmit="return check()">
+						<fieldset>
+							<table class="Seat">
+								<tr>
+									<td class="door" colspan="4">앞</td>
+								</tr>
+								<tr>
+									<td class="door" colspan="2">운전석</td>
+									<td class="path" rowspan="9">통로</td>
+									<td class="door">출입문</td>
+								</tr>
+								<tr>
+									<td><label for="c1">01</label> <input type="Checkbox" value="s01" onclick="return isChecked(this)"></td>
+									<td><label for="c2">02</label> <input type="Checkbox" value="s02" onclick="return isChecked(this)"></td>
+									<td><label for="c3">03</label> <input type="Checkbox" value="s03" onclick="return isChecked(this)"></td>
+								</tr>
+								<tr>
+									<td><label for="c4">04</label> <input type="Checkbox" value="s04" onclick="return isChecked(this)"></td>
+									<td><label for="c5">05</label> <input type="Checkbox" value="s05" onclick="return isChecked(this)"></td>
+									<td><label for="c6">06</label> <input type="Checkbox" value="s06" onclick="return isChecked(this)"></td>
+								</tr>
+								<tr>
+									<td><label for="c7">07</label> <input type="Checkbox" value="s07" onclick="return isChecked(this)"></td>
+									<td><label for="c8">08</label> <input type="Checkbox" value="s08" onclick="return isChecked(this)"></td>
+									<td><label for="c9">09</label> <input type="Checkbox" value="s09" onclick="return isChecked(this)"></td>
+								</tr>
+								<tr>
+									<td><label for="c10">10</label> <input type="Checkbox" value="s10" onclick="return isChecked(this)"></td>
+									<td><label for="c11">11</label> <input type="Checkbox" value="s11" onclick="return isChecked(this)"></td>
+									<td><label for="c12">12</label> <input type="Checkbox" value="s12" onclick="return isChecked(this)"></td>
+								</tr>
+								<tr>
+									<td><label for="c13">13</label> <input type="Checkbox" value="s13" onclick="return isChecked(this)"></td>
+									<td><label for="c14">14</label> <input type="Checkbox" value="s14" onclick="return isChecked(this)"></td>
+									<td><label for="c15">15</label> <input type="Checkbox" value="s15" onclick="return isChecked(this)"></td>
+								</tr>
+								<tr>
+									<td><label for="c16">16</label> <input type="Checkbox" value="s16" onclick="return isChecked(this)"></td>
+									<td><label for="c17">17</label> <input type="Checkbox" value="s17" onclick="return isChecked(this)"></td>
+									<td><label for="c18">18</label> <input type="Checkbox" value="s18" onclick="return isChecked(this)"></td>
+								</tr>
+								<tr>
+									<td><label for="c19">19</label> <input type="Checkbox" value="s19" onclick="return isChecked(this)"></td>
+									<td><label for="c20">20</label> <input type="Checkbox" value="s20" onclick="return isChecked(this)"></td>
+									<td><label for="c21">21</label> <input type="Checkbox" value="s21" onclick="return isChecked(this)"></td>
+								</tr>
+								<tr>
+									<td><label for="c22">22</label> <input type="Checkbox" value="s22" onclick="return isChecked(this)"></td>
+									<td><label for="c23">23</label> <input type="Checkbox" value="s23" onclick="return isChecked(this)"></td>
+									<td><label for="c24">24</label> <input type="Checkbox" value="s24" onclick="return isChecked(this)"></td>
+								</tr>
+								<tr>
+									<td><label for="c25">25</label> <input type="Checkbox" value="s25" onclick="return isChecked(this)"></td>
+									<td><label for="c26">26</label> <input type="Checkbox" value="s26" onclick="return isChecked(this)"></td>
+									<td><label for="c27">27</label> <input type="Checkbox" value="s27" onclick="return isChecked(this)"></td>
+									<td><label for="c28">28</label> <input type="Checkbox" value="s28" onclick="return isChecked(this)"></td>
+								</tr>
+								<tr>
+									<td class="door" colspan="4">뒤</td>
+								</tr>
+							</table>
+						</fieldset>
+						<input type="button" width="120px" title="submit" name="submit" value="예약하기" onclick="return submitSeat()">
+					</form>
+					<br>
+					<h1 class="textInfo2">
+						예약좌석 : 
+					</h1>
+					<h1 class="textInfo2" id="isSelect">선택된 좌석이 없습니다.</h1>
+					<br><br>
+					<p class="textInfo2">
+						※ 예약한 좌석이 맞는지 확인바랍니다.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed" data-fullscreen="true" id="footer">
+			<div class="address">
+				<a href="#">Created By WebProgramming 60132308 <br> bootre@naver.com</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
